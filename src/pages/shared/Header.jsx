@@ -1,8 +1,12 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
 const Header = () => {
+  const location = useLocation();
+  const path = location.pathname;
+
+  console.log("🚀 ~ file: Header.jsx ~ line 9 ~ Header ~ location", location);
   return (
     <div className="navbar md:px-[135px] px-0 flex justify-between fixed">
       <div className="flex justify-between">
@@ -10,7 +14,9 @@ const Header = () => {
           <img
             src={logo}
             alt=""
-            className="w-[120px] h-[56px] invert-[100%] contrast-[200%] grayscale-[100%]"
+            className={`w-[120px] h-[56px] ${
+              path === "/" && " invert-[100%] contrast-[200%] grayscale-[100%]"
+            }`}
           />
         </Link>
         <div className="dropdown">
@@ -74,14 +80,26 @@ const Header = () => {
           />
         </div>
       </div>
-      <div className="hidden lg:flex gap-[50px] text-white font-medium text-[16px]">
-        <NavLink to="/">Home</NavLink>
+      <div
+        className={`hidden lg:flex gap-[50px] ${
+          path === "/" ? "text-white" : "text-black"
+        } font-medium text-[16px]`}
+      >
+        <NavLink
+          to="/"
+          className={({ isActive }) => isActive && "text-[#F9A51A]"}
+          end
+        >
+          Home
+        </NavLink>
         <NavLink>Destination</NavLink>
         <NavLink>Blog</NavLink>
         <NavLink>Contact</NavLink>
-        <button className="bg-[#F9A51A] rounded-[5px] px-[30px] py-[10px] hover:bg-[#ab6e0d] transition delay-75">
-          Login
-        </button>
+        <NavLink to="/login">
+          <button className="bg-[#F9A51A] rounded-[5px] px-[30px] py-[10px] hover:bg-[#ab6e0d] transition delay-75">
+            Login
+          </button>
+        </NavLink>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import Root from "../../layouts/Root";
 import Home from "../../pages/Home/Home";
 import Booking from "../../pages/Home/RightSide/Booking";
 import Places from "../../pages/Home/RightSide/Places";
+import Login from "../../pages/Login/Login";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -31,6 +32,10 @@ export const routes = createBrowserRouter([
             element: <Booking></Booking>,
           },
         ],
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
       },
     ],
   },
