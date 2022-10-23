@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 
 const Header = () => {
   return (
-    <div className="navbar bg-slate-500 md:px-[135px] px-0 flex justify-between">
+    <div className="navbar md:px-[135px] px-0 flex justify-between fixed">
       <div className="flex justify-between">
         <Link to={"/"}>
           <img
@@ -69,8 +69,8 @@ const Header = () => {
         <div className="form-control">
           <input
             type="text"
-            placeholder="Search"
-            className="w-[370px] h-[44px] rounded-[5px] border border-white outline-none py-[12px] px-[14px]"
+            placeholder="Search your destination"
+            className="w-[370px] h-[44px] rounded-[5px] border border-white outline-none py-[12px] px-[14px]   bg-white/20 text-[#FFFFFF] font-medium text-[16px] placeholder-white"
           />
         </div>
       </div>
