@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { HomeContext } from "../../Context/HomeProvider";
+import LeftTitle from "./LeftTitle/LeftTitle";
 
 const Home = () => {
   const { selectedPlace } = useContext(HomeContext);
@@ -13,18 +14,7 @@ const Home = () => {
       }}
     >
       <div className="flex justify-center items-center ">
-        <div className="w-[80%] flex flex-col gap-[26px]">
-          <h1 className="uppercase font-normal text-[90px] leading-[117px]">
-            {selectedPlace.name}
-          </h1>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Reiciendis, accusamus!
-          </p>
-          <button className="bg-[#F9A51A] rounded-[5px] px-[30px] py-[10px] hover:bg-[#ab6e0d] transition delay-75 text-[#000000] w-[161px] h-[48px] font-medium text-[16px]">
-            Booking
-          </button>
-        </div>
+        <LeftTitle></LeftTitle>
       </div>
       <div className="">
         <Outlet></Outlet>

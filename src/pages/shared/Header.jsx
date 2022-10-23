@@ -75,7 +75,7 @@ const Header = () => {
         </div>
       </div>
       <div className="hidden lg:flex gap-[50px] text-white font-medium text-[16px]">
-        <NavLink>News</NavLink>
+        <NavLink to="/">Home</NavLink>
         <NavLink>Destination</NavLink>
         <NavLink>Blog</NavLink>
         <NavLink>Contact</NavLink>
