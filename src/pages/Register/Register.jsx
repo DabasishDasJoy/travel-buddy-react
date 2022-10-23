@@ -1,11 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   return (
     <div className="border  h-screen flex flex-col justify-center items-center gap-[15px] pt-10">
       <div className="w-[570px] border border-[#ABABAB] rounded py-[35px] px-[55px]">
-        <h3 className="font-bold text-[24px] text-center">Login</h3>
+        <h3 className="font-bold text-[24px] text-center">Register</h3>
+        <div className="form-control">
+          <input
+            type="text"
+            placeholder="name"
+            className="input focus:outline-none border-b-[#C5C5C5] border-t-0 border-x-0 rounded-none px-1 py-0 placeholder-black"
+          />
+        </div>
         <div className="form-control">
           <input
             type="text"
@@ -13,26 +20,40 @@ const Login = () => {
             className="input focus:outline-none border-b-[#C5C5C5] border-t-0 border-x-0 rounded-none px-1 py-0 placeholder-black"
           />
         </div>
-        <div className="form-control mt-[20px]">
+        <div className="form-control">
           <input
             type="text"
             placeholder="password"
             className="input focus:outline-none border-b-[#C5C5C5] border-t-0 border-x-0 rounded-none px-1 py-0 placeholder-black"
           />
-          <label className="label">
-            <button className="label-text-alt link link-hover">
-              Forgot password?
-            </button>
+        </div>
+
+        <div className="form-control">
+          <input
+            type="text"
+            placeholder="confrim password"
+            className="input focus:outline-none border-b-[#C5C5C5] border-t-0 border-x-0 rounded-none px-1 py-0 placeholder-black"
+          />
+        </div>
+        <div className="form-control">
+          <label className="cursor-pointer label justify-start gap-1">
+            <input type="checkbox" className="checkbox checkbox-accent" />
+            <span className="label-text">
+              Accept out{" "}
+              <Link className="underline text-blue-600">
+                Terms & Conditions
+              </Link>
+            </span>
           </label>
         </div>
-        <button className=" bg-[#F9A51A] font-medium  text-black border-none h-[45px] rounded-md w-full mt-[27px]">
-          Login
+        <button className=" bg-[#F9A51A] font-medium text-black border-none h-[45px] rounded-md w-full mt-[10px]">
+          Create Account
         </button>
 
         <p className="font-medium my-[16px] text-center">
-          <span className="text-black">Don't have an account?</span>{" "}
-          <Link to={"/register"} className="underline text-[#F9A51A]">
-            Create an account
+          <span className="text-black">Already have an account?</span>{" "}
+          <Link to={"/login"} className="underline text-[#F9A51A]">
+            Login
           </Link>{" "}
         </p>
       </div>
@@ -53,4 +74,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
