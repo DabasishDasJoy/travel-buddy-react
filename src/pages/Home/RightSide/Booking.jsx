@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from "react-router-dom";
 import { HomeContext } from "../../../Context/HomeProvider";
 
 const Booking = () => {
-  const { selectedPlace } = useContext(HomeContext);
-  const [dateFrom, setDateFrom] = useState(null);
-  const [dateTo, setDateTo] = useState(null);
+  const { selectedPlace, dateFrom, dateTo, setDateFrom, setDateTo } =
+    useContext(HomeContext);
+
   return (
     <div className="flex justify-center items-center h-full">
       <div className=" w-[470px] bg-white rounded-md px-[24px] py-[27px]">
@@ -58,16 +59,17 @@ const Booking = () => {
               className="px-[22px] py-[20px] text-black font-bold bg-[#F2F2F2] rounded-md w-full h-[60px]"
               selected={dateTo}
               onChange={(date) => setDateTo(date)}
-              minDate={new Date()}
+              minDate={dateFrom}
               dateFormat="dd-MM-yyyy"
-              allowSameDay
             />
           </div>
         </div>
 
-        <button className=" bg-[#F9A51A] font-medium text-black border-none h-[60px] rounded-md w-full mt-[27px]">
-          Start Booking
-        </button>
+        <Link to={`/search/${selectedPlace.id}`}>
+          <button className=" bg-[#F9A51A] font-medium text-black border-none h-[60px] rounded-md w-full mt-[27px]">
+            Start Booking
+          </button>
+        </Link>
       </div>
     </div>
   );

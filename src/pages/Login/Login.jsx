@@ -1,13 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+
+  const handleEmail = (e) => {
+    setUserInfo({ ...userInfo, email: e.target.value });
+  };
+  const handlePassword = (e) => {
+    setUserInfo({ ...userInfo, password: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(userInfo.email, userInfo.password)
+      .then((res) => {
+        navigate(from, { replace: true });
+        e.target.reset();
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className="border  h-screen flex flex-col justify-center items-center gap-[15px] pt-10">
-      <div className="w-[570px] border border-[#ABABAB] rounded py-[35px] px-[55px]">
+      <form
+        onSubmit={handleSubmit}
+        className="w-[570px] border border-[#ABABAB] rounded py-[35px] px-[55px]"
+      >
         <h3 className="font-bold text-[24px] text-center">Login</h3>
         <div className="form-control">
           <input
+            onChange={handleEmail}
+            name="email"
             type="text"
             placeholder="username or email"
             className="input focus:outline-none border-b-[#C5C5C5] border-t-0 border-x-0 rounded-none px-1 py-0 placeholder-black"
@@ -15,7 +45,9 @@ const Login = () => {
         </div>
         <div className="form-control mt-[20px]">
           <input
-            type="text"
+            onChange={handlePassword}
+            name="password"
+            type="password"
             placeholder="password"
             className="input focus:outline-none border-b-[#C5C5C5] border-t-0 border-x-0 rounded-none px-1 py-0 placeholder-black"
           />
@@ -35,10 +67,12 @@ const Login = () => {
             Create an account
           </Link>{" "}
         </p>
-      </div>
+      </form>
 
-      <fieldset class="border-t border-[#AAAAAA] w-[400px] mx-auto">
-        <legend class="mx-auto px-1 text-black font-medium italic">Or</legend>
+      <fieldset className="border-t border-[#AAAAAA] w-[400px] mx-auto">
+        <legend className="mx-auto px-1 text-black font-medium italic">
+          Or
+        </legend>
       </fieldset>
 
       <div className="flex flex-col gap-2">

@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Header = () => {
+  const { user, logout } = useContext(AuthContext);
   const location = useLocation();
   const path = location.pathname;
 
-  console.log("🚀 ~ file: Header.jsx ~ line 9 ~ Header ~ location", location);
+  const handleLogout = () => {
+    logout()
+      .then()
+      .catch((err) => console.error(err));
+  };
+
   return (
-    <div className="navbar md:px-[135px] px-0 flex justify-between fixed">
+    <div className="navbar md:px-[135px] px-0 flex justify-between fixed z-20">
       <div className="flex justify-between">
         <Link to={"/"}>
           <img
             src={logo}
             alt=""
             className={`w-[120px] h-[56px] ${
-              path === "/" && " invert-[100%] contrast-[200%] grayscale-[100%]"
+              path === "/" || path === "/booking"
+                ? "invert-[100%] contrast-[200%] grayscale-[100%]"
+                : undefined
             }`}
           />
         </Link>
@@ -40,34 +49,9 @@ const Header = () => {
             tabIndex={0}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li tabIndex={0}>
-              <a className="justify-between">
-                Parent
-                <svg
-                  className="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                </svg>
-              </a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            <Link to={"/"}>Home</Link>
+
+            <Link to={"/login"}>Login</Link>
           </ul>
         </div>
       </div>
@@ -82,12 +66,14 @@ const Header = () => {
       </div>
       <div
         className={`hidden lg:flex gap-[50px] ${
-          path === "/" ? "text-white" : "text-black"
+          path === "/" || path === "/booking" ? "text-white" : "text-black"
         } font-medium text-[16px]`}
       >
         <NavLink
           to="/"
-          className={({ isActive }) => isActive && "text-[#F9A51A]"}
+          className={({ isActive }) =>
+            isActive ? "text-[#F9A51A]" : undefined
+          }
           end
         >
           Home
@@ -95,11 +81,25 @@ const Header = () => {
         <NavLink>Destination</NavLink>
         <NavLink>Blog</NavLink>
         <NavLink>Contact</NavLink>
-        <NavLink to="/login">
-          <button className="bg-[#F9A51A] rounded-[5px] px-[30px] py-[10px] hover:bg-[#ab6e0d] transition delay-75">
-            Login
-          </button>
-        </NavLink>
+        {user && user.uid ? (
+          <>
+            {user.email}
+            <button
+              onClick={handleLogout}
+              className="bg-[#F9A51A] rounded-[5px] px-[30px] py-[10px] hover:bg-[#ab6e0d] transition delay-75"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <NavLink to="/login">
+              <button className="bg-[#F9A51A] rounded-[5px] px-[30px] py-[10px] hover:bg-[#ab6e0d] transition delay-75">
+                Login
+              </button>
+            </NavLink>
+          </>
+        )}
       </div>
     </div>
   );

@@ -5,14 +5,26 @@ export const HomeContext = createContext();
 
 const HomeProvider = ({ children }) => {
   const places = useLoaderData();
-  console.log(
-    "🚀 ~ file: HomeProvider.jsx ~ line 8 ~ HomeProvider ~ places",
-    places
-  );
 
   const [selectedPlace, setSelectedPlace] = useState(places[0]);
+  const [dateFrom, setDateFrom] = useState(null);
 
-  const homeInfo = { places, selectedPlace, setSelectedPlace };
+  const [dateTo, setDateTo] = useState(null);
+
+  console.log(
+    "🚀 ~ file: HomeProvider.jsx ~ line 16 ~ HomeProvider ~ dateTo",
+    dateTo
+  );
+
+  const homeInfo = {
+    places,
+    selectedPlace,
+    setSelectedPlace,
+    dateFrom,
+    setDateFrom,
+    dateTo,
+    setDateTo,
+  };
   return (
     <HomeContext.Provider value={homeInfo}> {children} </HomeContext.Provider>
   );

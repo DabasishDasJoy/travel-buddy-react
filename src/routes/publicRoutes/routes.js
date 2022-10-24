@@ -5,24 +5,26 @@ import Booking from "../../pages/Home/RightSide/Booking";
 import Places from "../../pages/Home/RightSide/Places";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
+import Hotels from "../../pages/Search/Hotels";
+import PrivateRoute from "../privateRoutes/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Root></Root>,
+    loader: () => {
+      return fetch("https://travel-buddy-server.vercel.app/places");
+    },
+    element: (
+      <HomeProvider>
+        <Root></Root>
+      </HomeProvider>
+    ),
     children: [
       {
         path: "/",
-        loader: () => {
-          return fetch("https://travel-buddy-server.vercel.app/places");
-        },
-        element: (
-          <HomeProvider>
-            <Home></Home>
-          </HomeProvider>
-        ),
+        element: <Home></Home>,
         children: [
           {
             path: "/",
@@ -41,6 +43,19 @@ export const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/search/:id",
+        loader: ({ params }) => {
+          return fetch(
+            `https://travel-buddy-server.vercel.app/places/${params.id}`
+          );
+        },
+        element: (
+          <PrivateRoute>
+            <Hotels></Hotels>
+          </PrivateRoute>
+        ),
       },
     ],
   },
