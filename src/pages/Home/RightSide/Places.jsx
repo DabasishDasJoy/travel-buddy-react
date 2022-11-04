@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -21,7 +21,7 @@ const Places = () => {
     setSelectedPlace(place);
   };
   return (
-    <div className=" h-full py-20">
+    <div className=" h-full py-14">
       <Swiper
         onSwiper={setSwiperRef}
         slidesPerView={3}
@@ -35,12 +35,18 @@ const Places = () => {
       >
         {places.map((place) => (
           //
-          <SwiperSlide onClick={() => handleSelectPlace(place)}>
-            <div className="relative">
-              <img src={place.imgUrl} alt="" />
-              <h2 className="card-title absolute bottom-3 left-2">
-                {place.name}
-              </h2>
+          <SwiperSlide
+            onClick={() => handleSelectPlace(place)}
+            className="relative bg-cover bg-center min-w-[270px] max-w-[270px] min-h-[416px] rounded-lg cursor-pointer"
+            style={{ backgroundImage: `url(${place.imgUrl})` }}
+          >
+            <div class="absolute rounded-lg top-0 mt-32 right-0 bottom-0 left-0 bg-gradient-to-b from-transparent to-black"></div>
+
+            {/* <div className="">
+                <img src={place.imgUrl} alt="" />
+              </div> */}
+            <div className="absolute bottom-3 left-5 mb-2 flex justify-center">
+              <h2 className="card-title  text-3xl ">{place.name}</h2>
             </div>
           </SwiperSlide>
         ))}
@@ -48,10 +54,10 @@ const Places = () => {
 
       <div className="mt-20">
         <button className="prev">
-          <FaArrowCircleLeft className="w-[40px] h-[40px]" />
+          <FaChevronCircleLeft className="w-[40px] h-[40px]" />
         </button>
         <button className="ml-4 next">
-          <FaArrowCircleRight className="w-[40px] h-[40px]" />
+          <FaChevronCircleRight className="w-[40px] h-[40px]" />
         </button>
       </div>
     </div>
